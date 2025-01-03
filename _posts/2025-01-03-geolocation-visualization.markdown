@@ -9,7 +9,7 @@ Currently, when engineering and implementing centralized logging system. I reali
 
 The setup in the blog is quite similar to my existing infrastructure setup, except that I've been using Ingress NGINX as the entry point for my container orchestration platform. You can imagine my infrastructure as below:
 
-![geolocation-visualization/index.md](images/image.png)
+![_posts/images/geolocation/image.png](images/geolocation/image.png)
 
 To reach our goals, I need the following 4 components:
 * Beat - agent to collect logs for each service
@@ -18,7 +18,7 @@ To reach our goals, I need the following 4 components:
 * Grafana/Kibana - visualization
 
 Once I completed the engineering of those components, the diagram would look like:
-![geolocation-visualization/index.md](images/image-1.png)
+![_posts/images/geolocation/image-1.png](images/geolocation/image-1.png)
 ### How did I track the Public requests?
 As I'm using cloudflare technology for hosting, there's a useful non-standard http header that allows us to track the public IP of the client, that's **CF-Connecting-IP**. According to Cloudflare's [documentation](https://developers.cloudflare.com/fundamentals/reference/http-request-headers/)
 ```
@@ -91,7 +91,7 @@ To resolve that possible outage in combination with the fact that the IP assigne
 [IP-Lookup Repository](https://github.com/TruongHoangPhuLoc/IP-Lookup.git)
 
 #### After restructuring and transitioning, the diagram looks like
-![geolocation-visualization/index.md](images/image-2.png)
+![_posts/images/geolocation/image-2.png](images/geolocation/image-2.png)
 
 **In the diagram above, I drew the direct connection from logstash to IPLookup for simplicity. In fact, to establish the connection, it has to traverse the Ingress Nginx - as an only entry point for container orchestration platform.**
 
@@ -225,8 +225,8 @@ output {
 ```
 
 #### Visualization (Kibana/Grafana)
-Okay, almost done. Since I live in Viet Nam, let me query the countries of visitors who are not from Viet Nam
-![alt text](images/Query.png)
+Okay, almost done. Since I reside in Viet Nam, let me query the countries of visitors who are not from Viet Nam
+![_posts/images/geolocation/Query.png](images/geolocation/Query.png)
 From the returned documents above, we can see that on Jan 01 2025, we had 2 different countries visited our site. One came from **Finland with the IPv4 of 185.77.218.10** and another came from **US with the IPv6 2a09:bac5:d42e:e6::17:26a** 
 
 To be able to visualize geolocated data, I need to convert geoip.location to data type. To do this, create a mapping for index template
@@ -245,13 +245,13 @@ To be able to visualize geolocated data, I need to convert geoip.location to dat
 ```
 ##### Kibana
 I'm now able to use MAP to visualize where the requests came from based on geoip.location field
-![geolocation-visualization/index.md](images/Kibana.png)
+![_posts/images/geolocation/Kibana.png](images/geolocation/Kibana.png)
 
 The map worked as expected display requests came from Finland and US as mentioned above
 
 ##### Grafana
 I'm also able to use this method in addition to Grafana-prebuilt dashboard of Ingress Nginx to enrich insights
-![geolocation-visualization/index.md](images/Grafana.png)
+![_posts/images/geolocation/Grafana.png](images/geolocation/Grafana.png)
 
 ## Conclusion
 In this blog, we've explored how to geolocate and visualize internet requests hitting publicly available sites, particularly in a HomeLab environment. By leveraging tools like ipinfo, Flask API, and Grafana, we were able to effectively collect, process, and visualize geolocation data of visitors in real-time. This approach not only helps in understanding traffic patterns but also enhances security by providing insights into the geographical distribution of visitors.

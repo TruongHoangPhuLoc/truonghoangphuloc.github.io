@@ -21,11 +21,11 @@ Once I completed the engineering of those components, the diagram would look lik
 ![Image Alt Text](/assets/images/geolocation/image-1.png)
 ### How did I track the Public requests?
 As I'm using cloudflare technology for hosting. By tunneling from cloudflare edge to the cloudfared agent hosting on my own infrastucture, it plays a role of reverse proxy in building and forward traffic from external network to internal one. There's a useful non-standard http header that allows us to track the public IP of the client, that's **CF-Connecting-IP**. According to Cloudflare's [documentation](https://developers.cloudflare.com/fundamentals/reference/http-request-headers/)
-This means that Cloudflare will intercept every request coming from internet, open up the packet and append the CF-Connecting-IP header with the client's original public IP (except VPN connected) and then the modified packet will traverse to the Ingress. This could be seen as an key factor for me to pivot on.
-
 ```
 CF-Connecting-IP provides the client IP address connecting to Cloudflare to the origin web server. This header will only be sent on the traffic from Cloudflare's edge to your origin web server.
 ```
+This means that Cloudflare will intercept every request coming from internet, open up the packet and append the CF-Connecting-IP header with the client's original public IP (except VPN connected) and then the modified packet will traverse to the Ingress. This could be seen as an key factor for me to pivot on.
+
 To track that wanted IP, I simply logged that HTTP header by adjusting the Configmap in Ingress Chart. NGINX allows us to access incoming HTTP headers in its configuration using the prefix **http_**. In this context, I simply needed to add **"http_cf_connecting_ip": "$http_cf_connecting_ip"** to the json object.
 
 For example

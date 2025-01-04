@@ -82,7 +82,7 @@ To resolve that possible outage in combination with the fact that the IP assigne
 * This is an API written in Flask framework and acting as middleware. It's designed and implemented to perform several functions:
     - Receive field containing IP from logstash
     - Check if the received IP was cached already
-        - If yes, immediately returns the cached data to logstash
+        - If yes, immediately return the cached data to logstash
         - If not, make an API call to IPinfo to get the data of received IP, then store the received data in cache for configured period to reduce amount of API calls to IPinfo
     - Handle race condition when writing to cache for each IP being processed
     - Handle simultaneous requests
@@ -255,8 +255,6 @@ I'm also able to use this method in addition to Grafana-prebuilt dashboard of In
 
 ## Conclusion
 In this blog, we've explored how to geolocate and visualize internet requests hitting publicly available sites, particularly in a HomeLab environment. By leveraging tools like ipinfo, Flask API, and Grafana, we were able to effectively collect, process, and visualize geolocation data of visitors in real-time. This approach not only helps in understanding traffic patterns but also enhances security by providing insights into the geographical distribution of visitors.
-
-Although tracking the public IP is straightforward using the Cloudflare-provided dashboard, building this solution was both useful and an enjoyable learning experience. It not only deepened my understanding of the underlying processes but also offered an opportunity to create a tailored approach that aligns with specific needs
 
 Although tracking the public IP is straightforward using the Cloudflare-provided dashboard, building this solution was both useful and an enjoyable learning experience. It not only deepened my understanding of the underlying processes but also helped me with an opportunity to create a tailored approach that aligns with specific needs. Additionally, there are several areas for improvement, such as optimizing the efficiency of the traffic handling and adding more granular logging. One potential enhancement could be tracking whether the IP is connected via VPN, which would provide more accurate insights into traffic sources. This solution can be continuously developed, incorporating additional features like automated alerts or advanced traffic analytics, to further enhance its functionality and robustness
 

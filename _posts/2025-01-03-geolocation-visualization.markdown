@@ -172,7 +172,7 @@ filter {
                         "ip" => "%{http_cf_connecting_ip}"
                     }
                     body_format => "json"
-                    # The field which will contains enriched data
+                    # The field in which will store enriched data
                     target_body => "geoip"
                 }
             }
@@ -230,7 +230,7 @@ Okay, almost done. Since I reside in Vietnam, let me query the countries of visi
 ![Image Alt Text](/assets/images/geolocation/Query.png)
 From the returned documents above, we can see that on Jan 02 2025, we had 2 different countries visited our site. One came from **Finland with the IPv4 of 185.77.218.10** and another came from **US with the IPv6 2a09:bac5:d42e:e6::17:26a** 
 
-To be able to visualize geolocated data, I need to convert geoip.location to data type. To do this, create a mapping for index template
+To be able to visualize geolocated data, I need to convert geoip.location to geo_point data type. To do this, create a mapping for index template
 ```
 {
   "properties": {

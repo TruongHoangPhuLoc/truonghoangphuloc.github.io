@@ -74,7 +74,7 @@ Example json object result of IP 8.8.4.4
 }
 ```
 
-However, due to it's rate limiting per month(50k requests/month). It's possible that I could exceed that limit and end up in receiving 429 error code. Additionally, the behaviour of logstash is that it will simultaneously make requests to external API when it's notified of multiple log lines, which can lead to unnecessary API calls — especially when multiple requests originate from the same client (e.g., subsequent requests for static files).
+However, due to it's rate limiting per month(50k requests/month), it's possible that I could exceed that limit and end up in receiving 429 error code. Additionally, the behaviour of logstash is that it will simultaneously make requests to external API when it's notified of multiple log lines, which can lead to unnecessary API calls — especially when multiple requests originate from the same client (e.g., subsequent requests for static files).
 
 To resolve that possible outage in combination with the fact that the IP assigned to a city/residence would change but not frequently, I implemented a solution to optimize API usage
 

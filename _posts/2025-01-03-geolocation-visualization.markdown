@@ -60,7 +60,8 @@ This flow worked for me for a while until I found that sometimes the requests re
 It took me a whole day to research ELK ecosystem and finally I ended up with the migration from GeoIP processor to external API call for log enrichment. To achieve that, I leveraged a logstash filter plugin called [http](https://www.elastic.co/guide/en/logstash/current/plugins-filters-http.html), which allows me to call an external API and use the results to enrich the documents before ingesting them to elasticsearch.
 
 #### IPinfo
-I decided to use IPinfo as an external API for IP-based log enrichment. The json object of the results is almost identical to previous setup, the fields needed for geolocation and visualization are available 
+I decided to use IPinfo as an external API for IP-based log enrichment. The json object of the results is almost identical to previous setup, the fields needed for geolocation and visualization are available.
+
 Example json object result of IP 8.8.4.4
 ```
 {

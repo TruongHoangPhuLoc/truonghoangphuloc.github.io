@@ -24,7 +24,7 @@ As I'm using cloudflare technology for hosting, by tunneling from cloudflare edg
 ```
 CF-Connecting-IP provides the client IP address connecting to Cloudflare to the origin web server. This header will only be sent on the traffic from Cloudflare's edge to your origin web server.
 ```
-This means that Cloudflare will intercept every request coming from internet, open up the packet and append the CF-Connecting-IP header with the client's original public IP (except VPN connected) and then the modified packet will traverse to the Ingress. This could be seen as an key factor for me to pivot on.
+This means that Cloudflare will intercept every request coming from internet, open up the packet and append the CF-Connecting-IP header with the client's original public IP (except VPN connected) and then the modified packet will traverse to the Ingress. This could be seen as a key factor for me to pivot on.
 
 To track that wanted IP, I simply logged that HTTP header by adjusting the Configmap in Ingress Chart. NGINX allows us to access incoming HTTP headers in its configuration using the prefix **http_**. In this context, I simply needed to add **"http_cf_connecting_ip": "$http_cf_connecting_ip"** to the json object.
 

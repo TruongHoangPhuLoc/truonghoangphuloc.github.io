@@ -3,7 +3,7 @@ layout: default
 title: "How I Geolocated and Visualized Internet Requests Hitting My Publicly Available Sites for HomeLab"
 ---
 # How I Geolocated and Visualized Internet Requests Hitting My Publicly Available Sites for HomeLab
-Currently, when engineering and implementing centralized logging system. I realized that the need for IP-based geolocation and visualization was really essential. By correlating this information with log fields, I would be able to do further security analyses(determine anomalous patterns), traffic optimization, or even do some analyses relating to business(who visited our sites the most and what their countries are?),... Therefore, I needed a technique that is somehow able to geolocate and visualize the requests containing public IPs. At first, there was such confusion about where I should get started. Thankfully, after having the basic foundation of ELK and searching for solutions, I found a blog series that was the fundamental and gave me the starting points that I derived from. The series I found can be found here: [Setting Up Kibana Dashboards for NGINX Log Data](https://ruan.dev/blog/2019/04/02/setup-kibana-dashboards-for-nginx-log-data-to-understand-the-behavior).
+Currently, when engineering and implementing centralized logging system, I realized that the need for IP-based geolocation and visualization was really essential. By correlating this information with log fields, I would be able to do further security analyses(determine anomalous patterns), traffic optimization, or even do some analyses relating to business(who visited our sites the most and what their countries are?),... Therefore, I needed a technique that is somehow able to geolocate and visualize the requests containing public IPs. At first, there was such confusion about where I should get started. Thankfully, after having the basic foundation of ELK and searching for solutions, I found a blog series that was the fundamental and gave me the starting points that I derived from. The series I found can be found here: [Setting Up Kibana Dashboards for NGINX Log Data](https://ruan.dev/blog/2019/04/02/setup-kibana-dashboards-for-nginx-log-data-to-understand-the-behavior).
 
 ## Integrating the Solution into My Existing Infrastructure
 
@@ -20,7 +20,7 @@ To reach our goals, I need the following 4 components:
 Once I completed the engineering of those components, the diagram would look like:
 ![Image Alt Text](/assets/images/geolocation/image-1.png)
 ### How did I track the Public requests?
-As I'm using cloudflare technology for hosting. By tunneling from cloudflare edge to the cloudfared agent hosting on my own infrastucture, it plays a role of reverse proxy in building and forward traffic from external network to internal one. There's a useful non-standard http header that allows us to track the public IP of the client, that's **CF-Connecting-IP**. According to Cloudflare's [documentation](https://developers.cloudflare.com/fundamentals/reference/http-request-headers/)
+As I'm using cloudflare technology for hosting, by tunneling from cloudflare edge to the cloudfared agent hosting on my own infrastucture, it plays a role of reverse proxy in building and forward traffic from external network to internal one. There's a useful non-standard http header that allows us to track the public IP of the client, that's **CF-Connecting-IP**. According to Cloudflare's [documentation](https://developers.cloudflare.com/fundamentals/reference/http-request-headers/)
 ```
 CF-Connecting-IP provides the client IP address connecting to Cloudflare to the origin web server. This header will only be sent on the traffic from Cloudflare's edge to your origin web server.
 ```
@@ -225,9 +225,9 @@ output {
 ```
 
 #### Visualization (Kibana/Grafana)
-Okay, almost done. Since I reside in Viet Nam, let me query the countries of visitors who are not from Viet Nam
+Okay, almost done. Since I reside in Vietnam, let me query the countries of visitors who are not from Vietnam
 ![Image Alt Text](/assets/images/geolocation/Query.png)
-From the returned documents above, we can see that on Jan 01 2025, we had 2 different countries visited our site. One came from **Finland with the IPv4 of 185.77.218.10** and another came from **US with the IPv6 2a09:bac5:d42e:e6::17:26a** 
+From the returned documents above, we can see that on Jan 02 2025, we had 2 different countries visited our site. One came from **Finland with the IPv4 of 185.77.218.10** and another came from **US with the IPv6 2a09:bac5:d42e:e6::17:26a** 
 
 To be able to visualize geolocated data, I need to convert geoip.location to data type. To do this, create a mapping for index template
 ```
